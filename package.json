@@ -1,0 +1,26 @@
+{
+  "name": "flight-training",
+  "version": "0.0.1",
+  "description": "SMS class assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoryWilson/SMS-flight-training.git"
+  },
+  "author": "Cory Wilson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CoryWilson/SMS-flight-training/issues"
+  },
+  "homepage": "https://github.com/CoryWilson/SMS-flight-training#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.3"
+  }
+}

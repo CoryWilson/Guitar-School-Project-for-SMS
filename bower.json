@@ -1,0 +1,20 @@
+{
+  "name": "flight-training",
+  "version": "0.0.1",
+  "homepage": "https://github.com/CoryWilson/SMS-flight-training",
+  "description": "SMS class assignments",
+  "keywords": [
+    "SMS"
+  ],
+  "authors": [
+    "Cory Wilson"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
