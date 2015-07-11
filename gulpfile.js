@@ -3,10 +3,12 @@ var gulp         = require('gulp'),
     browserSync  = require('browser-sync').create();
     bower        = require('gulp-bower'),
     childProcess = require('child_process'),
+    gzip         = require('gulp-gzip'),
     minifyCss    = require('gulp-minify-css'),
     nodemon      = require('gulp-nodemon'),
     notify       = require('gulp-notify'),
     rename       = require('gulp-rename'),
+    reload       = browserSync.reload,
     sass         = require('gulp-sass'),
     sourcemaps   = require('gulp-sourcemaps'),
     transform    = require('vinyl-transform'),
@@ -14,6 +16,7 @@ var gulp         = require('gulp'),
     watchify     = require('watchify');
 
 var config = {
+  fontPath : './dev/fonts',
   sassPath : './dev/sass',
   jsPath   : './dev/js',
 	bowerDir : './bower_components'
@@ -30,10 +33,17 @@ gulp.task('browserify', function(){
     .pipe(gulp.dest('./site/assets/js'));
 });
 
+gulp.task('fonts', function(){
+  gulp.src('./dev/fonts/**/*')
+    .pipe(gulp.dest('./site/assets/fonts'));
+});
+
 gulp.task('html', function(){
-  gulp.src('*.html')
+  gulp.src('./*.html')
     .pipe(gulp.dest('./site'));
 });
+
+gulp.task('html-watch',['html'],browserSync.reload);
 
 gulp.task('scripts', function(){
   gulp.src(config.jsPath+'/*.js')
@@ -57,17 +67,17 @@ gulp.task('styles', function(){
 });
 
 gulp.task('bower', function(){
-  return bower()
-    .pipe(gulp.dest(config.bowerDir));
+  return bower(config.bowerDir)
+    .pipe(gulp.dest('./site/assets/js/vendor'));
 });
 
 gulp.task('serve',['styles'], function(){
   browserSync.init({
     server: './site'
   });
-  gulp.watch('./dev/sass/*.scss',['styles']);
-  gulp.watch('./dev/js/*.js',['script-watch']);
-  gulp.watch('./*.html').on('change',browserSync.reload);
+  gulp.watch(config.sassPath+'/*.scss',['styles']);
+  gulp.watch(config.jsPath+'/*.js',['script-watch']);
+  gulp.watch('./*.html',['html-watch']);
 });
 
-gulp.task('default', ['bower','html','scripts','serve']);
+gulp.task('default', ['bower','html','fonts','scripts','serve']);

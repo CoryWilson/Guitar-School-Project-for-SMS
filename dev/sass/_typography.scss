@@ -1,0 +1,25 @@
+/***** Typography *****/
+body {
+  font-family: $halis-light;
+}
+.logo {
+  font-family: $nabila;
+}
+.huge-text {
+  font-size: $ms-5;
+}
+h1 {
+  font-size: $ms-4;
+  font-family: $halis-black;
+}
+h2 {
+  font-size: $ms-3;
+  font-family: $halis-bold;
+}
+h3 {
+  font-size: $ms-2;
+  font-family: $halis-regular;
+}
+p, a {
+  font-size: $ms-1;
+}

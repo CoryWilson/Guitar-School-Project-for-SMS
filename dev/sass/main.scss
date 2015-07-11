@@ -1,6 +1,7 @@
+@import 'meyer-reset';
 @import 'jeet/index';
-
-body {
-  background: yellow;
-  font-family: helvetica neue;
-}
+@import 'variables';
+@import 'colors';
+@import 'typography';
+@import 'layout';
+@import 'base';

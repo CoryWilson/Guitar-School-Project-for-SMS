@@ -24,6 +24,7 @@
     "browserify": "^10.2.4",
     "gulp": "^3.9.0",
     "gulp-bower": "0.0.10",
+    "gulp-gzip": "^1.1.0",
     "gulp-minify-css": "^1.2.0",
     "gulp-nodemon": "^2.0.3",
     "gulp-notify": "^2.2.0",
