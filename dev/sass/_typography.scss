@@ -1,12 +1,15 @@
 /***** Typography *****/
-body {
+body, button {
   font-family: $halis-light;
 }
 .logo {
   font-family: $nabila;
+  font-size: $ms-3;
 }
-.huge-text {
-  font-size: $ms-5;
+.feature-text {
+  h1 {
+    font-size: $feature-size;
+  }
 }
 h1 {
   font-size: $ms-4;
@@ -20,6 +23,10 @@ h3 {
   font-size: $ms-2;
   font-family: $halis-regular;
 }
-p, a {
+p, button {
   font-size: $ms-1;
+}
+
+.feature-button button {
+  font-family: $halis-regular;
 }

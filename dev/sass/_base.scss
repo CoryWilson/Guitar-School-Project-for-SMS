@@ -1,1 +1,132 @@
 /***** Base *****/
+
+/* Defaults */
+
+//set all media to responsive state
+img,
+embed,
+object,
+video {
+  max-width: 100%;
+}
+
+//default link style
+a {
+  color: $black;
+  text-decoration: none;
+  display: block;
+  &:hover {
+    color: $red;
+    text-decoration: underline;
+    transition: .5s;
+  }
+}
+
+
+.course-list {
+  .container {
+    h2 {
+      text-align: center;
+      margin: 30px 0;
+    }
+  }
+}
+
+//default course-item style
+.course-item {
+  padding-bottom: 10px;
+  //.course-item hover
+  &:hover {
+    transform: scale(1.025);
+    transition: .75s;
+    img {
+      opacity: .5;
+    }
+  }
+  h3 {
+    text-align: center;
+    margin: 15px 0;
+  }
+  p {
+    width: 90%;
+    margin: 0 auto;
+    line-height: 1.2;
+  }
+  a{
+    display: block;
+    //link hover
+    &:hover {
+      color: $black;
+      text-decoration: none;
+    }
+  }
+}
+
+//default button style
+button {
+  background: none;
+  border-radius: 5px;
+  border: 5px solid $black;
+  display: block;
+  color: $black;
+  &:hover {
+    transition: .5s;
+    border: 5px solid $red;
+    color: $red;
+    text-decoration: none;
+  }
+}
+
+.registerForm {
+  background: $red;
+  margin: 200px auto;
+  padding: 50px 0;
+  input {
+    @include span(8/10);
+    line-height: 1.5;
+    display: block;
+    border: none;
+    background: none;
+    border-bottom: 2px solid $black;
+    margin: 15px 0;
+    &:focus{
+      outline: none;
+    }
+  }
+  button {
+    @include span(8/10);
+    display: block;
+  }
+  @include span(1);
+  clear: both;
+}
+
+footer {
+  clear: left;
+  text-align: center;
+}
+
+/* Colors */
+body {
+  background: $offWhite;
+}
+.feature {
+  background: $yellow;
+  color: $black;
+}
+.logo {
+  color: $red;
+  text-shadow: 2px 1px 1px $black;
+}
+header {
+  background: $offWhite;
+  box-shadow: 0 5px 3px -3px $black;
+}
+.course-item {
+  background: $white;
+  box-shadow: 5px 5px 5px -3px $black;
+}
+footer {
+  background: $offWhite;
+  color: $black;
+}

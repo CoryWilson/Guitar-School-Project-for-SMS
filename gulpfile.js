@@ -1,6 +1,6 @@
 var gulp         = require('gulp'),
     browserify   = require('browserify'),
-    browserSync  = require('browser-sync').create();
+    browserSync  = require('browser-sync').create(),
     bower        = require('gulp-bower'),
     childProcess = require('child_process'),
     gzip         = require('gulp-gzip'),
@@ -19,6 +19,7 @@ var config = {
   fontPath : './dev/fonts',
   sassPath : './dev/sass',
   jsPath   : './dev/js',
+  imgPath  : './dev/img',
 	bowerDir : './bower_components'
 };
 
@@ -44,6 +45,11 @@ gulp.task('html', function(){
 });
 
 gulp.task('html-watch',['html'],browserSync.reload);
+
+gulp.task('images', function(){
+  gulp.src(config.imgPath+'/*')
+    .pipe(gulp.dest('./site/assets/img'));
+});
 
 gulp.task('scripts', function(){
   gulp.src(config.jsPath+'/*.js')
@@ -80,4 +86,4 @@ gulp.task('serve',['styles'], function(){
   gulp.watch('./*.html',['html-watch']);
 });
 
-gulp.task('default', ['bower','html','fonts','scripts','serve']);
+gulp.task('default', ['bower','html','images','fonts','scripts','serve']);
