@@ -20,6 +20,7 @@
   "dependencies": {
     "angularfire": "~1.1.2",
     "firebase": "~2.2.7",
-    "angular-ui-router": "~0.2.15"
+    "angular-ui-router": "~0.2.15",
+    "angular-route": "~1.4.3"
   }
 }
