@@ -31,12 +31,34 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
     });
 }]);
 
-app.controller('MainController', ['$scope',function($scope){
+app.controller('NavController',['FIREBASE_URI','$scope','$firebaseAuth',function(FIREBASE_URI,$scope,$firebaseAuth){
+  var ref = new Firebase(FIREBASE_URI);
+  $scope.authObj = $firebaseAuth(ref);
+
+  $scope.authObj.$onAuth(function(authData) {
+    if (authData) {
+      $scope.loginStatus = '';
+    } else {
+      $scope.loginStatus = '<a href="/#login">Login</a>';
+    }
+  });
+}]);
+
+app.controller('MainController', ['FIREBASE_URI','$scope','$firebaseAuth',function(FIREBASE_URI,$scope,$firebaseAuth){
+  var ref = new Firebase(FIREBASE_URI);
+  $scope.authObj = $firebaseAuth(ref);
   $scope.courses = [
     'Beginner',
     'Intermediate',
     'Expert'
   ];
+  $scope.authObj.$onAuth(function(authData) {
+    if (authData) {
+      console.log("Logged in as:", authData.password.email);
+    } else {
+      console.log("Logged out");
+    }
+  });
 }]);
 
 app.controller('CoursesController', ['$scope',function($scope){
@@ -62,6 +84,7 @@ app.controller('RegisterUserController',['FIREBASE_URI','$scope','$firebaseAuth'
       });
     }).then(function(authData) {
       console.log("Logged in as:", authData.uid);
+      window.location.hash = '/#/';
     }).catch(function(error) {
       console.error("Error: ", error);
     });
@@ -80,7 +103,8 @@ app.controller('LoginUserController', ['FIREBASE_URI','$scope','$firebaseAuth', 
       email: $scope.email,
       password: $scope.password
     }).then(function(authData) {
-      console.log("Logged in as:", authData.uid);
+      console.log("Logged in as:", authData.password.email);
+      window.location.hash="/#/";
     }).catch(function(error) {
       console.error("Authentication failed:", error);
     });
