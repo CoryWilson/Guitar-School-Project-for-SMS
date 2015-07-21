@@ -1,8 +1,10 @@
 <h1>Login View</h1>
-<form class="loginForm container">
-  <input type="email" name="email" placeholder="Email" value="" />
-  <input type="password" name="password" placeholder="Password" value="" />
-  <button type="submit">
-    Login
-  </button>
-</form>
+<div class="container" ng-controller="LoginUserController">
+  <form name="loginForm" class="loginRegisterForm" ng-submit="loginUser()">
+    <input type="email" name="email" placeholder="Email" value="" ng-model="email"/>
+    <input type="password" name="password" placeholder="Password" value="" ng-model="password"/>
+    <button type="submit">
+      Login
+    </button>
+  </form>
+</div>

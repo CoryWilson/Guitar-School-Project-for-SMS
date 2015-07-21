@@ -1,6 +1,8 @@
 //# sourceMappingURL=../../../maps/js/main.js.map
 var app = angular.module('GuitarSchoolApp', ['ngRoute','firebase']);
 
+app.constant('FIREBASE_URI','https://guitar-school.firebaseIO.com/');
+
 app.config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider){
   $routeProvider
     .when('/',{
@@ -9,62 +11,79 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
     })
     .when('/register', {
       templateUrl : './partials/register.html',
-      controller  : 'AuthController'
+      controller  : 'RegisterUserController'
     })
     .when('/login',{
       templateUrl : './partials/login.html',
-      controller  : 'AuthController'
+      controller  : 'LoginUserController'
     })
     .when('/courses',{
       templateUrl : './partials/courses.html',
       controller  : 'CoursesController'
+    })
+    .when('/facebook',{
+      templateUrl : './partials/home.html',
+      controller  : 'AuthController'
+    })
+    .when('/github',{
+      templateUrl : './partials/home.html',
+      controller  : 'AuthController'
     });
-    // $locationProvider.html5Mode(true);
 }]);
 
-app.controller('MainController', function(){
+app.controller('MainController', ['$scope',function($scope){
+  $scope.courses = [
+    'Beginner',
+    'Intermediate',
+    'Expert'
+  ];
+}]);
 
-});
+app.controller('CoursesController', ['$scope',function($scope){
 
-app.controller('CoursesController', function(){
-
-});
-// var myDataRef = new Firebase('https://guitar-school.firebaseIO.com/');
+}]);
 
 //User Authentication Controller
-app.controller('AuthController',['$scope','$firebaseAuth'],function($scope,$firebaseAuth){
-  var ref = new Firebase('https://guitar-school.firebaseIO.com/');
-  var auth = $firebaseAuth(ref);
+app.controller('RegisterUserController',['FIREBASE_URI','$scope','$firebaseAuth',function(FIREBASE_URI,$scope,$firebaseAuth){
+  var ref = new Firebase(FIREBASE_URI);
+  $scope.authObj = $firebaseAuth(ref);
 
-  $scope.login = function(){
-    $scope.authData = null;
-    $scope.error = null;
-
-  };
-
-  $scope.authObj.$authWithPassword({
-    email: "my@email.com",
-    password: "mypassword"
-  }).then(function(authData) {
-    console.log("Logged in as:", authData.uid);
-  }).catch(function(error) {
-    console.error("Authentication failed:", error);
-  });
-});
-
-//Message Test Example Controller
-app.controller('MessageTestController', function($scope,$firebaseArray){
-  var ref = new Firebase('https://guitar-school.firebaseIO.com/');
-
-  //3-Way Data Binding Example
-  // var syncObject = $firebaseObject(ref);
-  // syncObject.$bindTo($scope, 'data');
-
-  $scope.messages = $firebaseArray(ref);
-
-  $scope.addMessage = function(){
-    $scope.messages.$add({
-      text: $scope.newMessageText
+  $scope.registerUser = function(email,password){
+    console.log($scope.email);
+    console.log($scope.password);
+    $scope.authObj.$createUser({
+      email: $scope.email,
+      password: $scope.password
+    }).then(function(userData) {
+      console.log("User " + userData.uid + " created successfully!");
+      return $scope.authObj.$authWithPassword({
+        email: $scope.email,
+        password: $scope.password
+      });
+    }).then(function(authData) {
+      console.log("Logged in as:", authData.uid);
+    }).catch(function(error) {
+      console.error("Error: ", error);
     });
   };
-});
+
+}]);
+
+app.controller('LoginUserController', ['FIREBASE_URI','$scope','$firebaseAuth', function(FIREBASE_URI,$scope,$firebaseAuth){
+  var ref = new Firebase('https://guitar-school.firebaseIO.com/');
+  $scope.authObj = $firebaseAuth(ref);
+
+  $scope.loginUser = function(email,password){
+    console.log($scope.email);
+    console.log($scope.password);
+    $scope.authObj.$authWithPassword({
+      email: $scope.email,
+      password: $scope.password
+    }).then(function(authData) {
+      console.log("Logged in as:", authData.uid);
+    }).catch(function(error) {
+      console.error("Authentication failed:", error);
+    });
+  };
+
+}]);

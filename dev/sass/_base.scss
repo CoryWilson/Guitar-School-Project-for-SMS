@@ -76,13 +76,16 @@ button {
     color: $yellow;
     text-decoration: none;
   }
+  &:focus {
+    outline: none;
+  }
 }
 
-.registerForm {
-  background: $red;
-  margin: 200px auto;
+.loginRegisterForm {
+  margin: 30px auto;
   padding: 50px 0;
   input {
+    @include shift(1/10);
     @include span(8/10);
     line-height: 1.5;
     display: block;
@@ -95,6 +98,7 @@ button {
     }
   }
   button {
+    @include shift(1/10);
     @include span(8/10);
     display: block;
   }
