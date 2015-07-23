@@ -11,11 +11,11 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
     })
     .when('/register', {
       templateUrl : './partials/register.html',
-      controller  : 'RegisterUserController'
+      controller  : 'UserAuthController'
     })
     .when('/login',{
       templateUrl : './partials/login.html',
-      controller  : 'LoginUserController'
+      controller  : 'UserAuthController'
     })
     .when('/courses',{
       templateUrl : './partials/courses.html',
@@ -31,33 +31,22 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
     });
 }]);
 
-app.controller('NavController',['FIREBASE_URI','$scope','$firebaseAuth',function(FIREBASE_URI,$scope,$firebaseAuth){
-  var ref = new Firebase(FIREBASE_URI);
-  $scope.authObj = $firebaseAuth(ref);
+app.factory('Auth', ['FIREBASE_URI','$firebaseAuth',
+  function(FIREBASE_URI,$firebaseAuth) {
+    var ref = new Firebase(FIREBASE_URI);
+    return $firebaseAuth(ref);
+  }
+]);
 
-  $scope.authObj.$onAuth(function(authData) {
-    if (authData) {
-      $scope.loginStatus = '';
-    } else {
-      $scope.loginStatus = '<a href="/#login">Login</a>';
-    }
-  });
-}]);
-
-app.controller('MainController', ['FIREBASE_URI','$scope','$firebaseAuth',function(FIREBASE_URI,$scope,$firebaseAuth){
-  var ref = new Firebase(FIREBASE_URI);
-  $scope.authObj = $firebaseAuth(ref);
+app.controller('MainController', ['$scope','Auth',function($scope,Auth){
+  $scope.authObj = Auth;
   $scope.courses = [
     'Beginner',
     'Intermediate',
     'Expert'
   ];
-  $scope.authObj.$onAuth(function(authData) {
-    if (authData) {
-      console.log("Logged in as:", authData.password.email);
-    } else {
-      console.log("Logged out");
-    }
+  $scope.authObj.$onAuth(function(authData){
+    $scope.authData = authData;
   });
 }]);
 
@@ -66,13 +55,10 @@ app.controller('CoursesController', ['$scope',function($scope){
 }]);
 
 //User Authentication Controller
-app.controller('RegisterUserController',['FIREBASE_URI','$scope','$firebaseAuth',function(FIREBASE_URI,$scope,$firebaseAuth){
-  var ref = new Firebase(FIREBASE_URI);
-  $scope.authObj = $firebaseAuth(ref);
+app.controller('UserAuthController',['$scope','Auth',function($scope,Auth){
+  $scope.authObj = Auth;
 
   $scope.registerUser = function(email,password){
-    console.log($scope.email);
-    console.log($scope.password);
     $scope.authObj.$createUser({
       email: $scope.email,
       password: $scope.password
@@ -90,15 +76,7 @@ app.controller('RegisterUserController',['FIREBASE_URI','$scope','$firebaseAuth'
     });
   };
 
-}]);
-
-app.controller('LoginUserController', ['FIREBASE_URI','$scope','$firebaseAuth', function(FIREBASE_URI,$scope,$firebaseAuth){
-  var ref = new Firebase('https://guitar-school.firebaseIO.com/');
-  $scope.authObj = $firebaseAuth(ref);
-
   $scope.loginUser = function(email,password){
-    console.log($scope.email);
-    console.log($scope.password);
     $scope.authObj.$authWithPassword({
       email: $scope.email,
       password: $scope.password
@@ -108,6 +86,14 @@ app.controller('LoginUserController', ['FIREBASE_URI','$scope','$firebaseAuth', 
     }).catch(function(error) {
       console.error("Authentication failed:", error);
     });
+  };
+
+  $scope.authObj.$onAuth(function(authData){
+    $scope.authData = authData;
+  });
+
+  $scope.logoutUser = function(){
+
   };
 
 }]);
