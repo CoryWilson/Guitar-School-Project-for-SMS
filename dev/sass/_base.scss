@@ -22,7 +22,11 @@ a {
   }
 }
 
-
+.feature {
+  h1 {
+    text-transform: capitalize;
+  }
+}
 .course-list {
   h2 {
     text-align: center;
