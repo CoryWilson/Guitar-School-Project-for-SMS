@@ -24,11 +24,9 @@ a {
 
 
 .course-list {
-  .container {
-    h2 {
-      text-align: center;
-      margin: 30px 0;
-    }
+  h2 {
+    text-align: center;
+    margin: 30px 0;
   }
 }
 
@@ -62,6 +60,33 @@ a {
   }
 }
 
+.lesson-list {
+  margin-top: 30px;
+}
+.lesson-list-item {
+  margin: 30px 0;
+  padding: 2%;
+  h2 {
+    text-transform: capitalize;
+  }
+  p {
+    line-height: 1.2;
+    letter-spacing: 1px;
+  }
+  a{
+    display: block;
+    //link hover
+    &:hover {
+      color: $black;
+      text-decoration: none;
+    }
+  }
+  &:hover {
+    transform: scale(1.025);
+    transition: .75s;
+  }
+}
+
 //default button style
 button {
   background: none;
@@ -81,13 +106,35 @@ button {
   }
 }
 
+::-webkit-input-placeholder{
+  color: $red;
+  text-transform: uppercase;
+}
+:-moz-placeholder{
+  color: $red;
+  text-transform: uppercase;
+}
+::-moz-placeholder{
+  color: $red;
+  text-transform: uppercase;
+}
+:-ms-input-placeholder {
+  color: $red;
+  text-transform: uppercase;
+}
+
 .loginRegisterForm {
+  h2{
+    text-align: center;
+  }
   margin: 30px auto;
   padding: 50px 0;
   input {
-    @include shift(1/10);
-    @include span(8/10);
+    @include shift(2/10);
+    @include span(6/10);
+    font-size: 1em;
     line-height: 1.5;
+    letter-spacing: 3px;
     display: block;
     border: none;
     background: none;
@@ -98,9 +145,16 @@ button {
     }
   }
   button {
-    @include shift(1/10);
-    @include span(8/10);
+    @include shift(2/10);
+    @include span(6/10);
     display: block;
+    text-transform: uppercase;
+    margin-top: 20px;
+    letter-spacing: 3px;
+    padding: 13px 0 10px 0;
+    &:hover{
+      transform: scale(1.05);
+    }
   }
   @include span(1);
   clear: both;
@@ -116,7 +170,7 @@ body {
   background: $offWhite;
 }
 .feature {
-  background: $yellow;
+  background: $teal;
   color: $black;
 }
 .logo {
@@ -127,7 +181,8 @@ header {
   background: $offWhite;
   box-shadow: 0 5px 3px -3px $black;
 }
-.course-item {
+.course-item,
+.lesson-list-item {
   background: $white;
   box-shadow: 5px 5px 5px -3px $black;
 }
