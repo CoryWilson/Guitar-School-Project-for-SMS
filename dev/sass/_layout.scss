@@ -88,6 +88,25 @@ header {
   }
 }
 
+.lesson{
+  .lesson-list-item {
+    &:hover {
+      transform: scale(1);
+    }
+  }
+  margin: 30px 0;
+  h2, h3 {
+    text-transform: capitalize;
+  }
+  ul {
+    list-style: disc;
+    margin-left: 2%;
+    li {
+      font-size: 1.2em;
+    }
+  }
+}
+
 footer {
   padding: 30px 0;
 }

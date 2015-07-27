@@ -16,18 +16,17 @@
   <div class="course-list">
     <div class="container">
       <h2>Choose From These Courses</h2>
-
-      <div class="course-item">
+      <div class="course-item" ng-repeat="(key,value) in data">
         <a href="/#courses">
-          <img src="assets/img/acoustic.jpg" alt="Beginner Course">
-          <h3>{{courses[0]}}</h3>
-          <p>Learn the basics of the guitar. Learn chords, scales, and basic maintenance. Get on your way to playing guitar today.</p>
+          <img src="{{value.image}}" alt="{{value.title}} Course">
+          <h3>{{value.title}}</h3>
+          <p>{{value.description}}</p>
         </a>
       </div>
-      <div class="course-item">
+      <!-- <div class="course-item">
         <a href="/#courses">
           <img src="assets/img/strat.jpg" alt="Intermediate Course">
-          <h3>{{courses[1]}}</h3>
+          <h3>{{data}}</h3>
           <p>Now that you know how the basics, it's time to push yourself. Learn soloing techniques, and more difficult skills. Start putting it together.</p>
         </a>
       </div>
@@ -37,7 +36,7 @@
           <h3>{{courses[2]}}</h3>
           <p>You know your way around a guitar. Now use these lessons to put yourself over the top. Become a certified guitar hero.</p>
         </a>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
