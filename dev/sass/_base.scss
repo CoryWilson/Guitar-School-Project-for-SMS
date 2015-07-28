@@ -46,6 +46,7 @@ a {
     }
   }
   h3 {
+    text-transform: capitalize;
     text-align: center;
     margin: 15px 0;
   }
@@ -72,6 +73,9 @@ a {
   padding: 2%;
   h2 {
     text-transform: capitalize;
+  }
+  h3 {
+    text-align: center;
   }
   p {
     line-height: 1.2;

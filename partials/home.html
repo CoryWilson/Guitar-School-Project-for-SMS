@@ -6,9 +6,9 @@
           Learn To Play Guitar Today.
         </h1>
       </div>
-      <div class="feature-button">
+      <div class="feature-button" ng-hide="authData">
         <a href="/#register">
-          <button ng-hide="authData">Sign Up Now!</button>
+          <button>Sign Up Now!</button>
         </a>
       </div>
     </div>
@@ -16,27 +16,13 @@
   <div class="course-list">
     <div class="container">
       <h2>Choose From These Courses</h2>
-      <div class="course-item" ng-repeat="(key,value) in data">
+      <div class="course-item" ng-repeat="item in data">
         <a href="/#courses">
-          <img src="{{value.image}}" alt="{{value.title}} Course">
-          <h3>{{value.title}}</h3>
-          <p>{{value.description}}</p>
+          <img src="{{item.image}}" alt="{{item.title}} Course">
+          <h3>{{item.title}}</h3>
+          <p>{{item.description}}</p>
         </a>
       </div>
-      <!-- <div class="course-item">
-        <a href="/#courses">
-          <img src="assets/img/strat.jpg" alt="Intermediate Course">
-          <h3>{{data}}</h3>
-          <p>Now that you know how the basics, it's time to push yourself. Learn soloing techniques, and more difficult skills. Start putting it together.</p>
-        </a>
-      </div>
-      <div class="course-item">
-        <a href="/#courses">
-          <img src="assets/img/live.jpg" alt="Advanced Course">
-          <h3>{{courses[2]}}</h3>
-          <p>You know your way around a guitar. Now use these lessons to put yourself over the top. Become a certified guitar hero.</p>
-        </a>
-      </div> -->
     </div>
   </div>
 </div>

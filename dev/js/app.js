@@ -6,7 +6,6 @@ var app = angular.module('GuitarSchoolApp', ['ngRoute','firebase']);
 
 app.constant('FIREBASE_URI','https://guitar-school.firebaseIO.com/');
 
-
 /***** Routes *****/
 
 app.config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider){
@@ -22,6 +21,10 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
     .when('/login',{
       templateUrl : './partials/login.html',
       controller  : 'UserAuthController'
+    })
+    .when('/profile',{
+      templateUrl : './partials/profile.html',
+      controller  : 'ProfileController'
     })
     .when('/courses',{
       templateUrl : './partials/courses.html',
@@ -45,6 +48,14 @@ app.factory('Auth', ['FIREBASE_URI','$firebaseAuth',
   }
 ]);
 
+app.factory('Users', ['FIREBASE_URI','$firebaseObject',
+  function(FIREBASE_URI,$firebaseObject) {
+    var ref = new Firebase(FIREBASE_URI);
+    var usersRef = ref.child('users');
+    return $firebaseObject(usersRef);
+  }
+]);
+
 app.factory('Courses', ['FIREBASE_URI','$firebaseAuth','$firebaseObject',
   function(FIREBASE_URI,$firebaseAuth,$firebaseObject){
     var ref = new Firebase(FIREBASE_URI);
@@ -64,19 +75,23 @@ app.factory('Lessons', ['FIREBASE_URI','$firebaseAuth','$firebaseObject',
 
 /***** Controllers *****/
 
-app.controller('MainController', ['$scope','$firebaseObject','Auth','Courses',function($scope,$firebaseObject,Auth,Courses){
+app.controller('MainController', ['$scope','$firebaseObject','Auth','Courses','FIREBASE_URI',function($scope,$firebaseObject,Auth,Courses,FIREBASE_URI){
   var obj = Courses;
 
   obj.$loaded().then(function() {
-    console.log("loaded record:", obj.$id, obj.someOtherKeyInData);
-
+    console.log("loaded record:", obj.$id);
     // To iterate the key/value pairs of the object, use angular.forEach()
     angular.forEach(obj, function(value, key) {
-      console.log(key, value);
+      //console.log(key, value);
     });
   });
-
   $scope.data = obj;
+
+  $scope.authObj = Auth;
+  $scope.authObj.$onAuth(function(authData){
+    $scope.authData = authData;
+  });
+
 }]);
 
 app.controller('CoursesController', ['$scope','$firebaseObject','Auth','Courses',function($scope,$firebaseObject,Auth,Courses){
@@ -87,7 +102,7 @@ app.controller('CoursesController', ['$scope','$firebaseObject','Auth','Courses'
 
     // To iterate the key/value pairs of the object, use angular.forEach()
     angular.forEach(obj, function(value, key) {
-      console.log(key, value);
+      //console.log(key, value);
     });
   });
 
@@ -119,29 +134,67 @@ app.controller('LessonsController', ['$scope','$routeParams','$firebaseObject','
             $scope.data = v;
             console.log('lesson: ',v);
           }
-        })
+        });
       }
     });
   });
 
 }]);
 
-//User Authentication Controller
-app.controller('UserAuthController',['$scope','$firebaseObject','Auth',function($scope,$firebaseObject,Auth){
+app.controller('ProfileController',['Users','Auth','$scope','$firebaseObject',function(Users,Auth,$scope,$firebaseObject){
+  var usersObj = Users;
   $scope.authObj = Auth;
-  
+  //console.log(usersObj);
+
+  $scope.authObj.$onAuth(function(authData){
+    $scope.authData = authData;
+    //console.log($scope.authData);
+    usersObj.$loaded().then(function() {
+      //console.log("loaded record:", usersObj.$id);
+      // To iterate the key/value pairs of the object, use angular.forEach()
+      angular.forEach(usersObj, function(value, key) {
+        //console.log(key, value);
+        if(key == $scope.authData.uid){
+          $scope.data = value;
+        }
+      });
+    });
+  });
+
+}]);
+
+//User Authentication Controller
+app.controller('UserAuthController',['FIREBASE_URI','$scope','$firebaseObject','Auth',function(FIREBASE_URI,$scope,$firebaseObject,Auth){
+  var ref = new Firebase(FIREBASE_URI);
+  var profileRef = ref.child('users');
+  $scope.authObj = Auth;
+  var isNewUser = false;
+
   $scope.registerUser = function(email,password){
     $scope.authObj.$createUser({
       email: $scope.email,
       password: $scope.password
     }).then(function(userData) {
       console.log("User " + userData.uid + " created successfully!");
+      isNewUser = true;
       return $scope.authObj.$authWithPassword({
         email: $scope.email,
         password: $scope.password
       });
     }).then(function(authData) {
-      console.log("Logged in as:", authData.uid);
+      console.log("Logged in as:", authData);
+      if(authData && isNewUser){
+        profileRef.child(authData.uid).set({
+          provider: authData.provider,
+          name: getName(authData)
+        });
+      }
+      function getName(authData){
+        switch(authData.provider){
+          case 'password':
+            return authData.password.email.replace(/@.*/, '');
+        }
+      }
       window.location.hash = '/#/';
     }).catch(function(error) {
       console.error("Error: ", error);
@@ -162,7 +215,6 @@ app.controller('UserAuthController',['$scope','$firebaseObject','Auth',function(
 
   $scope.authObj.$onAuth(function(authData){
     $scope.authData = authData;
-
   });
 
   $scope.logoutUser = function(){

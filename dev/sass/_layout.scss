@@ -27,7 +27,7 @@ header {
     margin-top: 23px;
     li{
       a{
-        @include col(1/2);
+        @include col(1/3);
         display: block;
         float: left;
       }
