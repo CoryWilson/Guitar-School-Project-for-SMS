@@ -139,7 +139,9 @@ app.controller('ProfileController',['Profile','Auth','$scope','$firebaseObject',
   $scope.authObj.$onAuth(function(authData){
     if(authData){
       //pulls the profile obj based on authData.uid
-      Profile(authData.uid).$bindTo($scope,'profile');
+      Profile(authData.uid).$bindTo($scope,'profile').then(function(){
+        console.log($scope.profile);
+      });
     } else {
       //if the user is not authenticated relocate to home
       window.location.hash="/#/";
