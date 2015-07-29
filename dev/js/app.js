@@ -22,6 +22,10 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
       templateUrl : './partials/login.html',
       controller  : 'UserAuthController'
     })
+    .when('/messages',{
+      templateUrl : './partials/messages.html',
+      controller  : 'MessagesController'
+    })
     .when('/profile',{
       templateUrl : './partials/profile.html',
       controller  : 'ProfileController'
@@ -111,7 +115,9 @@ app.controller('CoursesController', ['$scope','$firebaseObject','Auth','Courses'
 
 }]);
 
-app.controller('LessonsController', ['FIREBASE_URI','$scope','$routeParams','$firebaseObject','Auth',function(FIREBASE_URI,$scope,$routeParams,$firebaseObject,Auth){
+app.controller('LessonsController', ['FIREBASE_URI','$scope','$routeParams','$firebaseObject','Profile','Auth',function(FIREBASE_URI,$scope,$routeParams,$firebaseObject,Profile,Auth){
+  $scope.authObj = Auth;
+
   //saves route parameters as a variable
   var course = $routeParams.courseParam;
   var lesson = $routeParams.lessonParam;
@@ -130,25 +136,98 @@ app.controller('LessonsController', ['FIREBASE_URI','$scope','$routeParams','$fi
   $scope.courseData = courseObj;
   $scope.lessonData = lessonObj;
 
+  $scope.authObj.$onAuth(function(authData){
+    if(authData){
+      Profile(authData.uid).$bindTo($scope,'profile');
+    }
+  });
+
 }]);
 
 app.controller('ProfileController',['Profile','Auth','$scope','$firebaseObject',function(Profile,Auth,$scope,$firebaseObject){
   //returns user profile information
   $scope.authObj = Auth;
+
   //checks user authentication
   $scope.authObj.$onAuth(function(authData){
     if(authData){
       //pulls the profile obj based on authData.uid
+      //$scope.profile = Profile(authData.uid);
       Profile(authData.uid).$bindTo($scope,'profile').then(function(){
-        console.log($scope.profile);
+        $scope.auth = authData;
+        console.log($scope.profile.name);
+        //change email
+        $scope.changeEmail = function(){
+          $scope.authObj.$changeEmail({
+            oldEmail: $scope.profile.email,
+            newEmail: $scope.newEmail,
+            password: $scope.profile.password
+          }).then(function() {
+            console.log("Email changed successfully!");
+            $scope.profile.email = $scope.newEmail;
+          }).catch(function(error) {
+            console.error("Error: ", error);
+          });
+        };
+        //change password
+        $scope.changePassword = function(){
+          $scope.authObj.$changePassword({
+            email: $scope.profile.email,
+            oldPassword: $scope.profile.password,
+            newPassword: $scope.profile.newPassword
+          }).then(function(){
+            console.log("Password changed successfully!");
+            $scope.profile.password = $scope.profile.newPassword;
+          }).catch(function(error){
+            console.error("Error: ",error);
+          });
+        };
+        //reset password
+        $scope.resetPassword = function(){
+          $scope.authObj.$resetPassword({
+            email: $scope.profile.email
+          }).then(function(){
+            console.log("Password reset email sent successfully!");
+          }).catch(function(error){
+            console.error("Error: ",error);
+          });
+        };
       });
     } else {
       //if the user is not authenticated relocate to home
       window.location.hash="/#/";
     }
   });
+}]);
+
+/*
+app.controller('MessagesController',['FIREBASE_URI','Auth','$scope','$firebaseArray', function(FIREBASE_URI,Auth,$scope,$firebaseArray){
+
+  var ref = new Firebase(FIREBASE_URI+'messages');
+  var messagesArray = $firebaseArray(ref);
+
+  //messagesArray.post = '';
+
+  var sendMessage = function(){
+    console.log('work?');
+    // if(post.length > 0){
+    //   messagesArray.$add({
+    //     post:post,
+    //     name:'CoryBro'
+    //   }).then(function(ref){
+    //     var id = ref.key();
+    //     console.log('added records with id ',id);
+    //     messagesArray.$indexFor(id);
+    //     messagesArray.post = '';
+    //   });
+    // }
+  };
+  $scope.messages = messagesArray;
+  //messagesArray.$loaded();
+  console.log(messagesArray);
 
 }]);
+*/
 
 //User Authentication Controller
 app.controller('UserAuthController',['FIREBASE_URI','$scope','$firebaseObject','Auth',function(FIREBASE_URI,$scope,$firebaseObject,Auth){

@@ -1,0 +1,14 @@
+<div ng-controller="MessagesController">
+  <div class="messages">
+    <ul>
+      <li ng-repeat="message in messages">
+        {{message.name}}
+        {{message.post}}
+      </li>
+    </ul>
+  </div>
+  <form ng-submit="messages.sendMessage()">
+    <input type="text" placeholder="Type here..." ng-model="messages.post"/>
+    <button type="submit">Send</button>
+  </form>
+</div>
