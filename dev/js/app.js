@@ -110,34 +110,24 @@ app.controller('CoursesController', ['$scope','$firebaseObject','Auth','Courses'
 
 }]);
 
-app.controller('LessonsController', ['$scope','$routeParams','$firebaseObject','Auth','Lessons',function($scope,$routeParams,$firebaseObject,Auth,Lessons){
+app.controller('LessonsController', ['FIREBASE_URI','$scope','$routeParams','$firebaseObject','Auth',function(FIREBASE_URI,$scope,$routeParams,$firebaseObject,Auth){
+  //saves route parameters as a variable
   var course = $routeParams.courseParam;
   var lesson = $routeParams.lessonParam;
-  console.log('Course Param: ', course);
-  console.log('Lesson Param: ', lesson);
 
-  var obj = Lessons;
+  //creates a firebase reference to the url with params
+  var courseRef = new Firebase(FIREBASE_URI+'lessons/'+course);
+  //creates a new firebase object based off that ref
+  var courseObj = $firebaseObject(courseRef);
 
-  // to take an action after the data loads, use the $loaded() promise
-  obj.$loaded().then(function() {
-    console.log("loaded record:", obj.$id);
+  //creates a firebase reference to the url with params
+  var lessonRef = new Firebase(FIREBASE_URI+'lessons/'+course+'/'+lesson);
+  //creates a new firebase object based off that ref
+  var lessonObj = $firebaseObject(lessonRef);
 
-    // To iterate the key/value pairs of the object, use angular.forEach()
-    angular.forEach(obj, function(value, key) {
-      // console.log(key, value);
-      if(key == course) {
-        $scope.title = key;
-        $scope.data = value;
-        console.log('course: ',value);
-        angular.forEach(value, function(v, k){
-          if(k == lesson){
-            $scope.data = v;
-            console.log('lesson: ',v);
-          }
-        });
-      }
-    });
-  });
+  //makes the objects visible to angular
+  $scope.courseData = courseObj;
+  $scope.lessonData = lessonObj;
 
 }]);
 

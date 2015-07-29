@@ -1,9 +1,9 @@
 <div ng-controller="LessonsController">
   <div class="container">
     <div class="lesson">
-      <h2>{{data.title}}</h2>
-      <p>{{data.description}}</p>
-      <div class="lesson-list-item" ng-repeat="(key,value) in data.chords">
+      <h2>{{lessonData.title}}</h2>
+      <p>{{lessonData.description}}</p>
+      <div class="lesson-list-item" ng-repeat="(key,value) in lessonData.chords">
         <h3>{{value.name}}</h3>
         <img src="{{value.image}}" alt="">
         <ul>

@@ -1,12 +1,12 @@
 <div ng-controller="LessonsController">
   <div class="feature">
     <div class="container">
-      <h1>{{title}} lessons</h1>
+      <h1>{{courseData.$id}} lessons</h1>
     </div>
   </div>
   <section class="lesson-list">
     <div class="container">
-      <div class="lesson-list-item" ng-repeat="item in data">
+      <div class="lesson-list-item" ng-repeat="item in courseData">
         <a href="{{item.url}}">
           <h2>{{item.title}}</h2>
           <p>{{item.description}}</p>
