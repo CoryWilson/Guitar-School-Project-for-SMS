@@ -1,0 +1,126 @@
+{
+  "courses" : [ {
+    "description" : "Learn the basics of the guitar. Learn chords, scales, and basic maintenance. Get on your way to playing guitar today.",
+    "id" : 0,
+    "image" : "assets/img/acoustic.jpg",
+    "title" : "beginner",
+    "url" : "#/beginner"
+  }, {
+    "description" : "Now that you know how the basics, it's time to push yourself. Learn soloing techniques, and more difficult skills. Start putting it together.",
+    "id" : 1,
+    "image" : "assets/img/strat.jpg",
+    "title" : "intermediate",
+    "url" : "#/intermediate"
+  }, {
+    "description" : "You know your way around a guitar. Now use these lessons to put yourself over the top. Become a certified guitar hero.",
+    "id" : 2,
+    "image" : "assets/img/live.jpg",
+    "title" : "expert",
+    "url" : "#/expert"
+  } ],
+  "lessons" : {
+    "beginner" : {
+      "major_chords" : {
+        "chords" : {
+          "a" : {
+            "image" : "assets/img/a-major.svg",
+            "instructions" : [ "Place your index finger on the D string, just behind the second fret.", "Place your middle finger on the G string, just behind the second fret.", "Place your ring finger on the B string, just behind the second fret.", "Strum the strings toward the floor, without strumming the low E string." ],
+            "name" : "a major"
+          },
+          "c" : {
+            "image" : "assets/img/c-major.svg",
+            "instructions" : [ "Place your index finger on the B string, just behind the first fret.", "Place your middle finger on the D string, just behind the second fret.", "Place your ring finger on the A string, just behind the third fret.", "Strum the strings toward the floor, without strumming the low E string." ],
+            "name" : "c major"
+          },
+          "d" : {
+            "image" : "assets/img/d-major.svg",
+            "instructions" : [ "Place your index finger on the G string, just behind the second fret.", "Place your middle finger on the high E string, just behind the second fret.", "Place your ring finger on the B string, just behind the third fret.", "Strum the strings toward the floor, without strumming the low E and A strings." ],
+            "name" : "d major"
+          },
+          "e" : {
+            "image" : "assets/img/e-major.svg",
+            "instructions" : [ "Place your index finger on the G string, just behind the first fret.", "Place your middle finger on the A string, just behind the second fret.", "Place your ring finger on the D string, just behind the second fret.", "Strum all of the strings toward the floor." ],
+            "name" : "e major"
+          },
+          "f" : {
+            "image" : "assets/img/f-major.svg",
+            "instructions" : [ "Place your index finger on both the high E and B strings, just behind the first fret.", "Place your middle finger on the G string, just behind the second fret.", "Place your ring finger on the D string, just behind the third fret.", "Strum the strings toward the floor, without strumming the low E and A strings." ],
+            "name" : "f major"
+          },
+          "g" : {
+            "image" : "assets/img/g-major.svg",
+            "instructions" : [ "Place your index finger on the A string, just behind the second fret.", "Place your middle finger on the low E string, just behind the third fret.", "Place your ring finger on the high E string, just behind the third fret.", "Strum all of the strings toward the floor." ],
+            "name" : "g major"
+          }
+        },
+        "description" : "A major chord consists of three notes you play at the same time. In comparison to some minor chords, major chords are uplifting, happy sounds. You can easily recognize a major chord because it is referred to by its letter name, such as C. The most commonly used major chords include G, C, D, E, A and F.",
+        "image" : "assets/img/e-major.png",
+        "title" : "major chords",
+        "url" : "#/beginner/major_chords"
+      },
+      "minor_chords" : {
+        "chords" : {
+          "am" : {
+            "image" : "assets/img/a-minor.svg",
+            "instructions" : [ "Place your index finger on the B string, just behind the first fret.", "Place your middle finger on the D string, just behind the second fret.", "Place your ring finger on the G string, just behind the second fret.", "Strum the strings toward the floor, without strumming the low E string." ],
+            "name" : "a minor"
+          },
+          "dm" : {
+            "image" : "assets/img/d-minor.svg",
+            "instructions" : [ "Place your index finger on the high E string, just behind the first fret.", "Place your middle finger on the G string, just behind the second fret.", "Place your ring finger on the B string, just behind the third fret.", "Strum the strings toward the floor, without strumming the low E and A strings." ],
+            "name" : "d minor"
+          },
+          "em" : {
+            "image" : "assets/img/e-minor.svg",
+            "instructions" : [ null, "Place your middle finger on the A string, just behind the second fret.", "Place your ring finger on the D string, just behind the second fret.", "Strum all of the strings toward the floor." ],
+            "name" : "e minor"
+          }
+        },
+        "description" : "Minor chords are characterized by the gloomy, sad sounds they produce. An 'm' beside the letter for a minor chord allows you to differentiate a minor from a major chord. For example, Dm indicates a D minor chord. The minor chords that are the easiest to play are Am, Em, and Dm.",
+        "image" : "assets/img/strat.jpg",
+        "title" : "minor chords",
+        "url" : "#/beginner/minor_chords"
+      }
+    },
+    "intermediate" : {
+      "major_scale" : {
+        "chords" : [ "G", "C", "D", "E", "A", "F" ],
+        "description" : "A major chord consists of three notes you play at the same time. In comparison to some minor chords, major chords are uplifting, happy sounds. You can easily recognize a major chord because it is referred to by its letter name, such as C. Th emost commonly used major chords include G, C, D, E, A and F.",
+        "image" : "assets/img/strat.jpg",
+        "title" : "major scale",
+        "url" : "#/intermediate/major_scale"
+      },
+      "minor_scale" : {
+        "chords" : [ "Am", "Em", "Dm" ],
+        "description" : "Minor chords are characterized by the gloomy, sad sounds they produce. An 'm' beside the letter for a minor chord allows you to differentiate a minor from a major chord. For example, Dm indicates a D minor chord. The minor chords that are the easiest to play are Am, Em, and Dm.",
+        "image" : "assets/img/strat.jpg",
+        "title" : "minor scale",
+        "url" : "#/intermediate/minor_scale"
+      }
+    }
+  },
+  "messages" : [ {
+    "name" : "cory",
+    "post" : "hey"
+  } ],
+  "users" : {
+    "simplelogin:10029" : {
+      "name" : "test",
+      "provider" : "password"
+    },
+    "simplelogin:10030" : {
+      "bio" : "I love guitar!",
+      "email" : "cory@test.com",
+      "name" : "Cory",
+      "newPassword" : "password",
+      "password" : "password",
+      "provider" : "password"
+    },
+    "simplelogin:10031" : {
+      "bio" : "I love to play guitar!",
+      "email" : "beth@test.com",
+      "name" : "Beth",
+      "provider" : "password"
+    }
+  }
+}
