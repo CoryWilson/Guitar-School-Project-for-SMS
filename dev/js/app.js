@@ -48,11 +48,12 @@ app.factory('Auth', ['FIREBASE_URI','$firebaseAuth',
   }
 ]);
 
-app.factory('Users', ['FIREBASE_URI','$firebaseObject',
+app.factory('Profile', ['FIREBASE_URI','$firebaseObject',
   function(FIREBASE_URI,$firebaseObject) {
-    var ref = new Firebase(FIREBASE_URI);
-    var usersRef = ref.child('users');
-    return $firebaseObject(usersRef);
+    return function(username){
+      var ref = new Firebase(FIREBASE_URI+'users/'+username);
+      return $firebaseObject(ref);
+    };
   }
 ]);
 
@@ -131,24 +132,18 @@ app.controller('LessonsController', ['FIREBASE_URI','$scope','$routeParams','$fi
 
 }]);
 
-app.controller('ProfileController',['Users','Auth','$scope','$firebaseObject',function(Users,Auth,$scope,$firebaseObject){
-  var usersObj = Users;
+app.controller('ProfileController',['Profile','Auth','$scope','$firebaseObject',function(Profile,Auth,$scope,$firebaseObject){
+  //returns user profile information
   $scope.authObj = Auth;
-  //console.log(usersObj);
-
+  //checks user authentication
   $scope.authObj.$onAuth(function(authData){
-    $scope.authData = authData;
-    //console.log($scope.authData);
-    usersObj.$loaded().then(function() {
-      //console.log("loaded record:", usersObj.$id);
-      // To iterate the key/value pairs of the object, use angular.forEach()
-      angular.forEach(usersObj, function(value, key) {
-        //console.log(key, value);
-        if(key == $scope.authData.uid){
-          $scope.data = value;
-        }
-      });
-    });
+    if(authData){
+      //pulls the profile obj based on authData.uid
+      Profile(authData.uid).$bindTo($scope,'profile');
+    } else {
+      //if the user is not authenticated relocate to home
+      window.location.hash="/#/";
+    }
   });
 
 }]);
