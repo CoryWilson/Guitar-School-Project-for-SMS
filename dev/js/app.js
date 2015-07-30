@@ -200,34 +200,46 @@ app.controller('ProfileController',['Profile','Auth','$scope','$firebaseObject',
   });
 }]);
 
-/*
-app.controller('MessagesController',['FIREBASE_URI','Auth','$scope','$firebaseArray', function(FIREBASE_URI,Auth,$scope,$firebaseArray){
+
+app.controller('MessagesController',['FIREBASE_URI','Auth','Profile','$scope','$firebaseArray', function(FIREBASE_URI,Auth,Profile,$scope,$firebaseArray){
+
+  $scope.authObj = Auth;
 
   var ref = new Firebase(FIREBASE_URI+'messages');
   var messagesArray = $firebaseArray(ref);
 
-  //messagesArray.post = '';
+  $scope.authObj.$onAuth(function(authData){
+    if(authData){
+      $scope.profile = Profile(authData.uid);
+      $scope.post = '';
+      $scope.messages = messagesArray;
 
-  var sendMessage = function(){
-    console.log('work?');
-    // if(post.length > 0){
-    //   messagesArray.$add({
-    //     post:post,
-    //     name:'CoryBro'
-    //   }).then(function(ref){
-    //     var id = ref.key();
-    //     console.log('added records with id ',id);
-    //     messagesArray.$indexFor(id);
-    //     messagesArray.post = '';
-    //   });
-    // }
-  };
-  $scope.messages = messagesArray;
-  //messagesArray.$loaded();
-  console.log(messagesArray);
+      $scope.sendMessage = function(){
+        if($scope.post.length > 0){
+          messagesArray.$add({
+            post:$scope.post,
+            name:$scope.profile.name
+          }).then(function(ref){
+            var id = ref.key();
+            console.log('added records with id ',id);
+            messagesArray.$indexFor(id);
+            $scope.post = '';
+            console.log(messagesArray);
+            var item = messagesArray[0];
+            if(messagesArray == 10){
+              messagesArray.$remove(item).then(function(id){
+                id === item.$id; // true
+              });
+            }
+          });
+        }
+      };
+    }
+  });
+
 
 }]);
-*/
+
 
 //User Authentication Controller
 app.controller('UserAuthController',['FIREBASE_URI','$scope','$firebaseObject','Auth',function(FIREBASE_URI,$scope,$firebaseObject,Auth){

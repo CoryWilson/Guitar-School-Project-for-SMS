@@ -1,30 +1,26 @@
-<div ng-controller="ProfileController">
+<div class="profile" ng-controller="ProfileController">
   <h2>{{profile.name}}'s Profile</h2>
-  <span>Name</span>
-  <input type="text" ng-model="profile.name" />
-  <span>Bio</span>
-  <textarea ng-model="profile.bio"></textarea>
-  <p>{{auth.password.email}}</p>
+  <div class="name">
+    <h3>Name</h3>
+    <input type="text" name="name" ng-model="profile.name"/>
+  </div>
+  <div class="bio">
+    <h3>Biography</h3>
+    <textarea ng-model="profile.bio"></textarea>
+  </div>
   <form ng-submit="changeEmail()">
-    <label for="email">Current Email: </label>
-      <input type="email" name="email" ng-model="profile.email" required/>
-    <label for="newEmail">New Email: </label>
-      <input type="email" name="newEmail" ng-model="newEmail" required/>
-    <label for="password">Password: </label>
-      <input type="password" name="password" ng-model="profile.password" required/>
+    <input type="email" name="email" ng-model="profile.email" required/>
+    <input type="email" name="newEmail" placeholder="New Email:" ng-model="newEmail" required/>
+    <input type="password" name="password" ng-model="profile.password" required/>
     <button type="submit">Change Email</button>
   </form>
   <form ng-submit="changePassword()">
-    <label for="email">Email: </label>
-      <input type="email" name="email" ng-model="profile.email" required/>
-    <label for="password">Current Password: </label>
-      <input type="password" name="password" ng-model="profile.password" required/>
-    <label for="newPassword">New Password: </label>
-      <input type="password" name="newPassword" ng-model="profile.newPassword" required/>
+    <input type="email" name="email" ng-model="profile.email" required/>
+    <input type="password" name="password" ng-model="profile.password" required/>
+    <input type="password" name="newPassword" ng-model="profile.newPassword" required/>
     <button type="submit">Change Password</button>
   </form>
   <form ng-submit="resetPassword()">
-    <label for="email">Email: </label>
     <input type="email" name="email" ng-model="profile.email" />
     <button type="submit">Reset Password</button>
   </form>

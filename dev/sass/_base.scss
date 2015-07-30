@@ -110,7 +110,7 @@ button {
     text-decoration: none;
   }
   &:focus {
-    outline: none;
+    outline: $red;
   }
 }
 
@@ -131,7 +131,8 @@ button {
   text-transform: uppercase;
 }
 
-.loginRegisterForm {
+.loginRegisterForm,
+.profile {
   h2{
     text-align: center;
   }
@@ -151,6 +152,32 @@ button {
     &:focus{
       outline: none;
     }
+}
+.name,
+.bio {
+    h3 {
+      margin: 15px 0 10px 0;
+    }
+    @include shift(2/10);
+    @include span(6/10);
+    input {
+      @include shift(0/10);
+      @include span(10/10);
+    }
+    textarea{
+      @include shift(0/10);
+      @include span(10/10);
+      border: 2px solid $black;
+      background: $white;
+      height: 75px;
+      &:focus {
+        outline: $red;
+      }
+    }
+  }
+  textarea {
+    @include shift(2/10);
+    @include span(6/10);
   }
   button {
     @include shift(2/10);
