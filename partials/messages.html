@@ -1,14 +1,17 @@
 <div ng-controller="MessagesController">
   <div class="messages">
-    <ul>
-      <li ng-repeat="message in messages">
-        {{message.name}}
-        {{message.post}}
-      </li>
-    </ul>
+    <div class="container">
+      <h2>Group Chat</h2>
+      <ul>
+        <li ng-repeat="message in messages">
+          <span>{{message.name}}</span>
+          <p>{{message.post}}</p>
+        </li>
+      </ul>
+      <form ng-submit="sendMessage()">
+        <input type="text" placeholder="Type here..." ng-model="post"/>
+        <button type="submit">Send</button>
+      </form>
+    </div>
   </div>
-  <form ng-submit="sendMessage()">
-    <input type="text" placeholder="Type here..." ng-model="post"/>
-    <button type="submit">Send</button>
-  </form>
 </div>

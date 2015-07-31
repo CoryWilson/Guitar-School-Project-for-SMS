@@ -114,6 +114,42 @@ button {
   }
 }
 
+.messages {
+  oveflow: hidden;
+  margin: 30px 0;
+  h2 {
+    text-align: center;
+    margin: 15px 0;
+  }
+  ul {
+    background: whitesmoke;
+    border: 2px solid $black;
+    padding: 15px 0;
+    li {
+      span {
+        @include col(1/6);
+        text-align: right;
+      }
+      p {
+        @include col(5/6);
+      }
+    }
+  }
+  form {
+    margin: 15px 0;
+    input {
+      @include col(4/6);
+      padding: 25px 0 5px 0;
+      border: none;
+      border-bottom: 2px solid $black;
+      background: none;
+    }
+    button {
+      @include col(2/6);
+    }
+  }
+}
+
 ::-webkit-input-placeholder{
   color: $red;
   text-transform: uppercase;
@@ -153,6 +189,7 @@ button {
       outline: none;
     }
 }
+
 .name,
 .bio {
     h3 {

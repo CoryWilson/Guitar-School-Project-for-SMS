@@ -30,3 +30,13 @@ p, button {
 .feature-button button {
   font-family: $halis-regular;
 }
+
+.messages {
+  span {
+    font-size: $ms-1;
+    font-family: $halis-bold; 
+  }
+  p {
+    font-size: $ms-1;
+  }
+}

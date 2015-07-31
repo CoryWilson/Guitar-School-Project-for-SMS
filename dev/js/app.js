@@ -216,24 +216,24 @@ app.controller('MessagesController',['FIREBASE_URI','Auth','Profile','$scope','$
 
       $scope.sendMessage = function(){
         if($scope.post.length > 0){
+          //adds message to meessage array
           messagesArray.$add({
             post:$scope.post,
             name:$scope.profile.name
           }).then(function(ref){
-            var id = ref.key();
-            console.log('added records with id ',id);
-            messagesArray.$indexFor(id);
-            $scope.post = '';
-            console.log(messagesArray);
-            var item = messagesArray[0];
-            if(messagesArray == 10){
-              messagesArray.$remove(item).then(function(id){
-                id === item.$id; // true
-              });
+            //chat that only displays 15 messages at a time
+            if(messagesArray.length == 15){
+              var item = messagesArray[0];
+              console.log(item);
+              messagesArray.$remove(item);
             }
+            $scope.post = '';
           });
         }
       };
+    } else {
+      //redirects home if the user is not logged in
+      window.location.hash="/#/";
     }
   });
 
