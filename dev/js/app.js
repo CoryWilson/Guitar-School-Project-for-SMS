@@ -138,6 +138,7 @@ app.controller('LessonsController', ['FIREBASE_URI','$scope','$routeParams','$fi
 
   $scope.authObj.$onAuth(function(authData){
     if(authData){
+      $scope.authData = authData;
       Profile(authData.uid).$bindTo($scope,'profile');
     }
   });

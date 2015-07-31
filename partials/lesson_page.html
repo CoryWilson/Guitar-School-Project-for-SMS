@@ -11,6 +11,15 @@
             {{item}}
           </li>
         </ul>
+        <form ng-show="authData" ng-submit="profile.$save()">
+          <input type="checkbox"
+          name="{{value.name}}"
+          id="{{value.name}}"
+          ng-model="profile.completed_lessons[value.name]"
+          ng-true-value="'Completed'"
+          ng-false-value="'Not Completed'">
+          <span>{{profile.completed_lessons[value.name]}}</span>
+        </form>
       </div>
     </div>
   </div>
