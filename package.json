@@ -11,7 +11,7 @@
     "url": "git+https://github.com/CoryWilson/SMS-flight-training.git"
   },
   "author": "Cory Wilson",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/CoryWilson/SMS-flight-training/issues"
   },
