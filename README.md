@@ -1,7 +1,11 @@
-# SMS-flight-training
+# Guitar School
 
-Cory Wilson
-SMS1507
+##By Cory Wilson
 
-##Front-End Framework:
-* Jeet
+
+Project was developed with the following:
+* Angular
+* Firebase
+* Jeet Grid
+
+It was an exploration of a concept for online guitar lessons. Featuring various courses that users could pick from. It was also an opportunity to build my angular and firebase skills.
